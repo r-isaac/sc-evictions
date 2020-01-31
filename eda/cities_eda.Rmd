@@ -1,0 +1,36 @@
+---
+title: "Cities EDA"
+author: "Isaac Arocha"
+date: "`r Sys.Date()`"
+output: 
+  github_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+# Libraries
+library(tidyverse)
+
+# Parameters
+cities <- 
+  read_rds(here::here("/data/cities.rds"))
+```
+
+## City with the most evictions
+
+```{r}
+cities <- 
+  cities %>% 
+  select(GEOID, year, name, evictions)
+
+cities %>% 
+  arrange(desc(evictions)) %>% 
+  top_n(n = 1, wt = evictions)
+
+
+```
+
